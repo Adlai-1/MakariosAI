@@ -17,5 +17,6 @@ MakariosAI stands apart from other Large Language Models like ChatGPT and Gemini
 # Documentation
 * Comprehensive documentations through comments have been made in order to make intuition simple.
 
+https://github.com/user-attachments/assets/70ed25c6-0b4f-4e59-a9b6-d47e9286f7dc
 
-![New Project - Made with Clipchamp](https://github.com/user-attachments/assets/ce032055-3711-446a-be11-668b60196be9)
+
