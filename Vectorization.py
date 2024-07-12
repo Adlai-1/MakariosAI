@@ -4,7 +4,7 @@ from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 # Load pdf file
-loader = PyMuPDFLoader("The-art-of-hearing.pdf")
+loader = PyMuPDFLoader("PDF file name")
 content = loader.load()
 
 # Text splitter

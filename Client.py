@@ -15,7 +15,7 @@ def render_response(message):
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(0.08)  # Adjust this value to change the speed of rendering
-    print("\n\n")
+    print("\n")
 
 try:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
