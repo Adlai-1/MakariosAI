@@ -7,6 +7,7 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import MessagesPlaceholder
 
+
 config = configparser.ConfigParser()
 config.read("config.ini")
 

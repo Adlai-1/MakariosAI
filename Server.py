@@ -1,7 +1,7 @@
 # imports...
 import configparser
 import socket
-from RAG_model import saveChat, RAGchain
+from langserve import RemoteRunnable
 # open config file...
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -29,13 +29,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         
         # RAG model magic!
         try:
-            response = RAGchain.invoke({'input': data.decode(), 'chat_history': chat_history})
+            ragChain = RemoteRunnable("http://localhost:8000/ask/")
 
-            # Save chat history
-            saveChat(data.decode(), response, chat_history)
+            input_data = {"input": [{"type": "human", "content": data.decode()}]}
+
+            response = ragChain.invoke(input_data, config={"configurable": {"session_id": "baz"}})
 
             # send response in chunks
             for i in range(0, len(response), 2048):
-                conn.send(response['answer'][i:i + 2048].encode())
+                conn.send(response[i:i + 2048].encode())
         except:
             conn.send("Unable to generate a response. Try again later!")
