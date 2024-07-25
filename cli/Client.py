@@ -1,20 +1,23 @@
 import configparser
 import socket
 import time
-import sys
+import sys, os
 
+# open config file...
 config = configparser.ConfigParser()
 config.read("config.ini")
 
+# necessarry variables...
 host = str(config['SERVER']['local'])
 port = int(config['SERVER']['port'])
 
+# function to render texts in bits
 def render_response(message):
     print("Response: ", end="", flush=True)
     for char in message:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.08)  # Adjust this value to change the speed of rendering
+        time.sleep(0.085)
     print("\n")
 
 try:
@@ -31,7 +34,7 @@ try:
             else:
                 server.send(data.encode())
 
-            # receive
+            # receive and render model response
             full_message = ""
             while True:
                 chunk = server.recv(2048)

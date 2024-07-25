@@ -61,7 +61,7 @@ def extract_query(input_data):
 
 input = RunnableParallel(
     {
-        "context": RunnableLambda(extract_query) | store.as_retriever(search_kwargs={"k": 8}),
+        "context": RunnableLambda(extract_query) | store.as_retriever(search_kwargs={"k": 5}),
         "input": RunnablePassthrough()
     }
 )

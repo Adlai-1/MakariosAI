@@ -2,6 +2,10 @@
 import configparser
 import socket
 from langserve import RemoteRunnable
+import os, sys
+
+sys.path.append(os.path.abspath(os.path.dirname("cli")))
+
 # open config file...
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -12,28 +16,25 @@ port = int(config['SERVER']['port'])
 
 # intializing our server...
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-    server.bind((host, port)) # bind host and port to form a url accessible by clients.
+    server.bind((host, port)) 
     
-    print("Server up and running!") # indicate if server is running
+    print("Server up and running!")
     
-    server.listen() # listen-in for client connection requests
+    server.listen() 
 
-    conn, addr = server.accept() # accepts client connection requests
-    print(f"Connection established with {addr}") # show client Ip address
-
-    chat_history = [] # storage to hold our conversation history.
+    conn, addr = server.accept()
+    print(f"Connection established with {addr}") 
+    
     while True:
         data = conn.recv(2048)
         
-        if not data: break # very necesssary to not create an infinite loop...
+        if not data: break 
         
-        # RAG model magic!
         try:
+            # Call rag model remotely...
             ragChain = RemoteRunnable("http://localhost:8000/ask/")
-
             input_data = {"input": [{"type": "human", "content": data.decode()}]}
-
-            response = ragChain.invoke(input_data, config={"configurable": {"session_id": "baz"}})
+            response = ragChain.invoke(input_data, config={"configurable": {"session_id": "convo"}})
 
             # send response in chunks
             for i in range(0, len(response), 2048):
