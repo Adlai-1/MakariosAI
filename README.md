@@ -13,10 +13,12 @@ MakariosAI stands apart from other Large Language Models like ChatGPT and Gemini
 * LangChain.
 * Hugging Face
 * UnifyAI
+* Streamlit
 
 # Documentation
 * Comprehensive documentations through comments have been made in order to make intuition simple.
 
 https://github.com/user-attachments/assets/70ed25c6-0b4f-4e59-a9b6-d47e9286f7dc
+![Screenshot (42)](https://github.com/user-attachments/assets/b87798cd-69a2-4d91-b8a5-7938e02f8304)
 
 
