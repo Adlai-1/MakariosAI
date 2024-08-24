@@ -19,10 +19,13 @@ for message in st.session_state.messages:
 
 # open file book
 books = []
-with open("books.txt") as file:
-    for line in file:
-        books.append(line.strip())
-    books.sort() 
+try:
+    with open("books.txt") as file:
+        for line in file:
+            books.append(line.strip())
+        books.sort()
+except Exception as e:
+    print(f"Error: {e}") 
 
 # side bar
 with st.sidebar:
