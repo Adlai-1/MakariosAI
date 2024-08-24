@@ -1,7 +1,5 @@
 import configparser
 import socket
-import time
-import sys, os
 
 # open config file...
 config = configparser.ConfigParser()
@@ -10,15 +8,6 @@ config.read("config.ini")
 # necessarry variables...
 host = str(config['SERVER']['local'])
 port = int(config['SERVER']['port'])
-
-# function to render texts in bits
-def render_response(message):
-    print("Response: ", end="", flush=True)
-    for char in message:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(0.085)
-    print("\n")
 
 try:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
@@ -34,16 +23,15 @@ try:
             else:
                 server.send(data.encode())
 
-            # receive and render model response
-            full_message = ""
+            resp = ""
             while True:
-                chunk = server.recv(2048)
+                chunk = server.recv(1024)
                 if not chunk:
                     break
-                full_message += chunk.decode()
-                if len(chunk) < 2048:
+                resp += chunk.decode()
+                if len(chunk) < 1024:
                     break
             
-            render_response(full_message)
+            print(f"Response: {resp}\n")
 except:
     print("\nCONNECTION CLOSED!")

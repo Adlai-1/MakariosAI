@@ -8,6 +8,7 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from pinecone import  Pinecone
+from langchain_pinecone import PineconeVectorStore
 
 # open config file...
 config = configparser.ConfigParser()
@@ -33,3 +34,5 @@ pc = Pinecone(config['SERVER']['vector'])
 idx = pc.Index("books")
 
 #...Upload vector embeddings
+store =  PineconeVectorStore(idx, model)
+print(store)
